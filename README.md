@@ -1,4 +1,4 @@
-# Clinica-User-Guide
+# Clinica-User-Guide (Example in ADNI)
 
 * Recently, I found a **super convenient and standard** data processing tool called **[clinica](https://aramislab.paris.inria.fr/clinica/docs/public/latest/)**. Strongly recommend. I found it from the survey paper [Convolutional neural networks for classiﬁcation of Alzheimer’s disease: Overview and reproducible evaluation](https://arxiv.org/abs/1904.07773) (which gives a github repo, and that repo uses clinica to process all the MRI data for all experiments). It supports to convert many frequently used brain MRI scan datasets (such as ADNI, AIBL, OASIS, etc) to standard format and the pre-processing procedures are done at the same time. ClinicaDL is a package that associates with clinica for deep learning. 
 
@@ -18,8 +18,8 @@
   * Convert ADNI MRI dataset to BID format (use all the csv files downloaded from the ADNI dataset that conclude all the information between tables, there are 352 files in total.)
 
      * T1: convert T1 data only
-     * mri/: directory stores MRI file (.nii for example)
-     * bid/: directory stores newly converted MRI data
+     * mri: directory stores MRI file (.nii for example)
+     * bid: directory stores newly converted MRI data
 
      ```
      clinica convert adni-to-bids -m T1 mri/ clinical_data/ bid/
@@ -30,7 +30,7 @@
       * t1-linear: use t1 linear pre-processing pipeline, which includes Bias field correction, Affine image registration (using [ANTs](http://stnava.github.io/ANTs/) software) and Cropping (169×208×179 with 1 mm3 isotropic voxels). 
       * np: use how many cpu cores
       * wd: working directory to store tmp files
-      * bid/, cap/: directory to store corresponding files
+      * bid, cap: directory to store corresponding files
 
      ```
      clinica run t1-linear -np 8 -wd ./ bid/ caps/
@@ -84,7 +84,7 @@
      ```
 
    * Split the train + val and test set
-     *  n_test: how many samples per label to create test set (if I enter 25, it means split 25 AD data and 25 CN data into test set)
+     *  n_test: how many samples per label to create test set (Enter 25 means spliting 25 AD scans and 25 CN scans into test set)
      
      ```
      clinicadl tsvtool split labels_lists --n_test 25
